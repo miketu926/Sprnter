@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './styles.css';
 
 import Counter from '../counter/counter.jsx';
 
