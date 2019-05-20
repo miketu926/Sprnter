@@ -16,13 +16,20 @@
 
 .main {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   width: auto;
 
   margin-top: 50px;
+
+  border: 1px solid black;
 }
 
 .main-header {
   width: 500px;
+  align-self: center;
+
+  
+
+  border: 1px solid black;
 }
