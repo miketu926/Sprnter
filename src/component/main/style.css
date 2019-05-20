@@ -1,0 +1,28 @@
+/* start of desktop styles */
+
+/* @media screen and (max-width: 991px) { */
+/* start of large tablet styles */
+/* } */
+
+/* @media screen and (max-width: 767px) { */
+/* start of medium tablet styles */
+
+/* } */
+
+/* @media screen and (max-width: 479px) { */
+/* start of phone styles */
+/* } */
+
+
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: auto;
+
+  margin-top: 50px;
+}
+
+.main-header {
+  width: 500px;
+}
