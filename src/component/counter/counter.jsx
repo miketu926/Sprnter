@@ -5,7 +5,7 @@ import './digital.css';
 // import "odometer/themes/odometer-theme-digital.css";
 
 
-function Counter({ balance, setBalance }) {
+function Counter({ balance, setBalance, rate }) {
   const useInterval = (callback, delay) => {
     const savedCallback = useRef();
     useEffect(() => {
@@ -20,8 +20,8 @@ function Counter({ balance, setBalance }) {
   };
 
   useInterval(() => {
-    setBalance(balance + 1);
-  }, 100);
+    setBalance(balance + rate);
+  }, 1000);
 
   return (
     <Odometer className='odometer' format="(,ddd).dddddd" value={balance} />
