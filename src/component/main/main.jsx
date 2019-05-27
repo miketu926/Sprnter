@@ -10,16 +10,43 @@ function Main() {
   const [rate, setRate] = useState(0);
   const [displayCounter, setDisplayCounter] = useState(false);
 
+  const daysIntoYear = (date) => {
+    return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
+  };
+
   const handleSubmit = (e) => {
-    // set up currentBalance using new Date determines today's balance since 1/1/YYYY
     e.preventDefault();
-    let today = new Date();
 
-    // let currentBalance = (salary - (salary * (taxRate / 100.00))).toFixed(6);
-    let currentBalance = salary - (salary * (taxRate / 100.00));
-    setBalance(currentBalance);
+    // TIMING VARS
+    let currentDate = new Date();
+    let currentDays = daysIntoYear(currentDate) - 1;
+    let currentHrs = currentDate.getHours();
+    let currentMins = currentDate.getMinutes();
+    let currentSecs = currentDate.getSeconds();
+    // END TIMING VARS
 
-    setRate((currentBalance / 365 / 24 / 60 / 60));
+    // BALANCE VARS
+    let EOYBalance = salary - (salary * (taxRate / 100));
+    let daysOfYear;
+    let ratePerDay = EOYBalance / 365;
+    let ratePerHr = EOYBalance / 365 / 24;
+    let ratePerMin = EOYBalance / 365 / 24 / 60;
+    let ratePerSec = EOYBalance / 365 / 24 / 60 / 60;
+
+    let currentBalance = currentDays * ratePerDay
+      + currentHrs * ratePerHr
+      + currentMins * ratePerMin
+      + currentSecs * ratePerSec;
+    // END BALANCE VARS
+
+    setBalance(currentBalance + ratePerSec); // add 1s of value into bal. due to render delay
+    setRate(ratePerSec); // for rate per second
+
+    console.log("Curr. balance: " + currentBalance);
+    console.log("Curr. rate/day: " + ratePerDay);
+    console.log("Curr. rate/hr: " + ratePerHr);
+    console.log("Curr. rate/min: " + ratePerMin);
+    console.log("Curr. rate/sec: " + ratePerSec);
 
     setDisplayCounter(true);
   };
@@ -45,8 +72,8 @@ function Main() {
 
         <div className='counter'>
           <form onSubmit={handleSubmit}>
-            <input type="number" placeholder="salary" min="0" step="1" onChange={e => setSalary(e.currentTarget.valueAsNumber)} />
-            <input type="number" placeholder="tax %" min='0' max='100' onChange={e => setTaxRate(e.currentTarget.valueAsNumber)} />
+            <input type="number" placeholder="salary" min="0" step="1" onChange={e => setSalary(e.target.valueAsNumber)} />
+            <input type="number" placeholder="tax %" min='0' max='100' onChange={e => setTaxRate(e.target.valueAsNumber)} />
             <input type="submit" value="GO" />
           </form>
         </div>
