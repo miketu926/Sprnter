@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Counter from '../counter/counter.jsx';
+import Cashflow from '../cashflow/cashflow';
 import './styles.css';
 
 
@@ -27,16 +28,16 @@ function Main() {
 
     // BALANCE VARS
     let EOYBalance = salary - (salary * (taxRate / 100));
-    let daysOfYear;
-    let ratePerDay = EOYBalance / 365;
-    let ratePerHr = EOYBalance / 365 / 24;
-    let ratePerMin = EOYBalance / 365 / 24 / 60;
-    let ratePerSec = EOYBalance / 365 / 24 / 60 / 60;
+    let daysOfYear = 365; // should also account for leap years w/ 366 days every ~4yrs
+    let ratePerDay = EOYBalance / daysOfYear;
+    let ratePerHr = EOYBalance / daysOfYear / 24;
+    let ratePerMin = EOYBalance / daysOfYear / 24 / 60;
+    let ratePerSec = EOYBalance / daysOfYear / 24 / 60 / 60;
 
-    let currentBalance = currentDays * ratePerDay
-      + currentHrs * ratePerHr
-      + currentMins * ratePerMin
-      + currentSecs * ratePerSec;
+    let currentBalance = currentDays * ratePerDay +
+      currentHrs * ratePerHr +
+      currentMins * ratePerMin +
+      currentSecs * ratePerSec;
     // END BALANCE VARS
 
     setBalance(currentBalance + ratePerSec); // add 1s of value into bal. due to render delay
@@ -62,6 +63,14 @@ function Main() {
             setBalance={setBalance}
             rate={rate}
           />
+        </div>
+        <div className='main'>
+          <div className='counter'>
+            <Cashflow
+              balance={balance}
+              setBalance={setBalance}
+            />
+          </div>
         </div>
       </div>
     );
