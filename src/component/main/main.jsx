@@ -11,6 +11,11 @@ function Main() {
   const [rate, setRate] = useState(0);
   const [displayCounter, setDisplayCounter] = useState(false);
 
+  const [ratePerDay, setRatePerDay] = useState(0);
+  const [ratePerHr, setRatePerHr] = useState(0);
+  const [ratePerMin, setRatePerMin] = useState(0);
+  const [ratePerSec, setRatePerSec] = useState(0);
+
   const daysIntoYear = (date) => {
     return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
   };
@@ -30,9 +35,13 @@ function Main() {
     let EOYBalance = salary - (salary * (taxRate / 100));
     let daysOfYear = 365; // should also account for leap years w/ 366 days every ~4yrs
     let ratePerDay = EOYBalance / daysOfYear;
+    setRatePerDay(ratePerDay);
     let ratePerHr = EOYBalance / daysOfYear / 24;
+    setRatePerHr(ratePerHr);
     let ratePerMin = EOYBalance / daysOfYear / 24 / 60;
+    setRatePerMin(ratePerMin);
     let ratePerSec = EOYBalance / daysOfYear / 24 / 60 / 60;
+    setRatePerSec(ratePerSec);
 
     let currentBalance = currentDays * ratePerDay +
       currentHrs * ratePerHr +
@@ -63,6 +72,12 @@ function Main() {
             setBalance={setBalance}
             rate={rate}
           />
+          <div>
+            Rate/day: {ratePerDay} <br />
+            Rate/hr: {ratePerHr} <br />
+            Rate/min: {ratePerMin} <br />
+            Rate/sec: {ratePerSec} <br />
+          </div>
         </div>
         <div className='main'>
           <div className='counter'>

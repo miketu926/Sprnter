@@ -26,7 +26,7 @@ function Counter({ balance, setBalance, rate }) {
   return (
     <Odometer
       className='odometer'
-      format="(,ddd).dddddd"
+      format="(,ddd).ddd"
       value={balance}
     />
   );

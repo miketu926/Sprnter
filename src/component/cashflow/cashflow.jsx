@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import CashflowList from '../cashflow_list/cashflow_list';
 
 function Cashflow({ balance, setBalance }) {
 
@@ -35,6 +36,12 @@ function Cashflow({ balance, setBalance }) {
         <input type="number" placeholder="addition" min='0' value={addition} onChange={e => setAddition(e.target.value)} />
         <input type="submit" value="ADD :)" />
       </form>
+      <ul>
+        <CashflowList
+          deductionList={deductionList}
+          additionList={additionList}
+        />
+      </ul>
     </>
   )
 
